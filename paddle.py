@@ -18,9 +18,7 @@ class Paddle(Turtle):
 
     def move_left(self, ball_object):
         """Move paddle to the left. If the ball has not been released, it will follow the paddle."""
-        if self.xcor <= -330:
-            pass
-        else:
+        if not self.xcor <= -330:
             self.xcor -= 20
             if not ball_object.released:
                 ball_object.goto(self.xcor, -290)
@@ -28,9 +26,7 @@ class Paddle(Turtle):
 
     def move_right(self, ball_object):
         """Move paddle to the right. If the ball has not been released, it will follow the paddle"""
-        if self.xcor >= 330:
-            pass
-        else:
+        if not self.xcor >= 330:
             self.xcor += 20
             if not ball_object.released:
                 ball_object.goto(self.xcor, -290)

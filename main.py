@@ -8,19 +8,9 @@ from loading_screen import LoadingScreen
 import turtle
 import time
 
-# Set screen
-screen = turtle.Screen()
-screen.bgcolor("black")
-screen.title("Breakout Game")
-screen.setup(width=760, height=650)
-screen.tracer(False)
-
-loading = LoadingScreen()
-time.sleep(5)
-loading.reset()
-
 # Constants
 GAME_SPEED = 0.1
+ADJUSTMENT_SPEED = 0.9
 ORANGE_FIRST_CONTACT = False
 RED_FIRST_CONTACT = False
 
@@ -31,6 +21,17 @@ points = {
     "orange": 5,
     "red": 7
 }
+
+# Set screen
+screen = turtle.Screen()
+screen.bgcolor("black")
+screen.title("Breakout Game")
+screen.setup(width=760, height=650)
+screen.tracer(False)
+
+loading = LoadingScreen()
+time.sleep(5)
+loading.reset()
 
 # Create all the bricks
 all_bricks = []
@@ -80,17 +81,17 @@ while game_is_on:
             brick.reset()
             all_bricks.remove(brick)
             ball.bounce_y()
-            if bricks_gone == 4 or bricks_gone == 12:
-                GAME_SPEED *= 0.5
+            if len(all_bricks) % 4 == 0:
+                GAME_SPEED *= ADJUSTMENT_SPEED
 
             if not ORANGE_FIRST_CONTACT:
                 if brick.color()[0] == "orange":
-                    GAME_SPEED *= 0.5
+                    GAME_SPEED *= ADJUSTMENT_SPEED
                     ORANGE_FIRST_CONTACT = True
 
             if not RED_FIRST_CONTACT:
                 if brick.color()[0] == "red":
-                    GAME_SPEED *= 0.5
+                    GAME_SPEED *= ADJUSTMENT_SPEED
                     RED_FIRST_CONTACT = True
 
     if ball.ycor() < -320:
